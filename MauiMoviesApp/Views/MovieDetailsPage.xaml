@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:MauiMoviesApp.Models"
+             xmlns:viewmodel="clr-namespace:MauiMoviesApp.ViewModels"
+             xmlns:controls="clr-namespace:MauiMoviesApp.Views.Controls"
+             x:DataType="viewmodel:MovieDetailsViewModel"
+             x:Class="MauiMoviesApp.Views.MovieDetailsPage"
+             BackgroundColor="Black"
+             Title="MovieDetailsPage">
+
+    <ScrollView Padding="10">
+        <StackLayout>
+            <ActivityIndicator IsVisible="{Binding IsLoading}"
+                               IsRunning="{Binding IsLoading}"
+                               Color="White"
+                               Margin="20"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center"/>
+            <StackLayout Spacing="20" Padding="5">
+
+                <Image Source="{Binding Movie.Poster_Path}"
+                   Aspect="AspectFit"
+                   HeightRequest="600"
+                   />
+                <Label FontSize="Title" TextColor="White" Text="{Binding Movie.Title, StringFormat='Title: {0}'}" />
+                <Label FontSize="Medium" TextColor="White" Text="{Binding Movie.Vote_Average, StringFormat='Rating: {0}'}" />
+                <Label FontSize="Medium" TextColor="White" Text="{Binding Movie.Popularity, StringFormat='Popularity: {0}'}" />
+                <Label FontSize="Medium" TextColor="White" Text="{Binding Movie.Overview}" />
+
+                <!--<xct:MediaElement Source="{Binding Video.Key}" HeightRequest="300"/>-->
+
+                <Button BackgroundColor="Red"
+                    Text="Watch trailer"
+                    Command="{Binding WatchTrailerCommand}"
+                    CommandParameter="{Binding Video.Key}"
+                    />
+                <Label FontSize="Medium" TextColor="White" Text="Cast" />
+                <CollectionView ItemsSource="{Binding Cast}"
+                            ItemsLayout="HorizontalList"
+                            HeightRequest="300"
+                        >
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate 
+                    x:DataType="model:Actor">
+                            <controls:ActorCardView ActorId="{Binding Id}"
+                                                Profile_Path="{Binding Profile_Path}"
+                                                Name="{Binding Name}"
+                                                Character="{Binding Character}"/>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+
+                <Label FontSize="Medium" TextColor="White" Text="Similar movies" />
+
+                <CollectionView ItemsSource="{Binding SimilarMovies}"
+                        ItemsLayout="HorizontalList"
+                        HorizontalOptions="StartAndExpand"
+                        SelectedItem="None"
+                        HeightRequest="280"
+                        >
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate 
+                    x:DataType="model:Movie">
+                            <controls:MovieCardView MovieId="{Binding Id}"
+                                                Poster_Path="{Binding Poster_Path}"
+                                                Vote_Average="{Binding Vote_Average}"/>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <Label FontSize="Medium" TextColor="White" Text="Recomendation" />
+
+                <CollectionView ItemsSource="{Binding RecomendationMovies}"
+                        ItemsLayout="HorizontalList"
+                        HorizontalOptions="StartAndExpand"
+                        SelectedItem="None"
+                        HeightRequest="280"
+                        >
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate 
+                    x:DataType="model:Movie">
+                            <controls:MovieCardView MovieId="{Binding Id}"
+                                                Poster_Path="{Binding Poster_Path}"
+                                                Vote_Average="{Binding Vote_Average}"/>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

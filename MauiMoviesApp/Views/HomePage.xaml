@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:MauiMoviesApp.Models"
+             xmlns:viewmodel="clr-namespace:MauiMoviesApp.ViewModels"
+             xmlns:controls="clr-namespace:MauiMoviesApp.Views.Controls"
+             x:DataType="viewmodel:HomeViewModel"
+             x:Class="MauiMoviesApp.Views.HomePage"
+             BackgroundColor="Black"
+             Title="HomePage">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Search" Command="{Binding GoToSearchPageCommand}"/>
+    </ContentPage.ToolbarItems>
+
+    
+    <ScrollView Padding="10">
+        <StackLayout>
+            <ActivityIndicator IsVisible="{Binding IsLoading}"
+                               IsRunning="{Binding IsLoading}"/>
+
+            <StackLayout Spacing="10"
+                     IsVisible="{Binding IsNotLoading}">
+            <Label Margin="10" TextColor="White" Text="Popular movies >">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoToMoviesCommand}"
+                                          CommandParameter="popular"/>
+                </Label.GestureRecognizers>
+            </Label>
+
+            <CollectionView ItemsSource="{Binding PopularMovies}"
+                            ItemsLayout="HorizontalList"
+                            HeightRequest="230"
+                            >
+                <CollectionView.ItemTemplate>
+                    <DataTemplate 
+                    x:DataType="model:Movie">
+                        <controls:MovieCardView MovieId="{Binding Id}"
+                                                Poster_Path="{Binding Poster_Path}"
+                                                Vote_Average="{Binding Vote_Average}"/>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Label Margin="10" TextColor="White" Text="Top rated movies >">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoToMoviesCommand}"
+                                          CommandParameter="top_rated"/>
+                </Label.GestureRecognizers>
+            </Label>
+
+            <CollectionView ItemsSource="{Binding TopRatedMovies}"
+                            ItemsLayout="HorizontalList"
+                            HeightRequest="230"
+                            >
+                <CollectionView.ItemTemplate>
+                    <DataTemplate 
+                    x:DataType="model:Movie">
+                        <controls:MovieCardView MovieId="{Binding Id}"
+                                                Poster_Path="{Binding Poster_Path}"
+                                                Vote_Average="{Binding Vote_Average}"/>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Label Margin="10" TextColor="White" Text="Upcoming movies >">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoToMoviesCommand}"
+                                          CommandParameter="upcoming"/>
+                </Label.GestureRecognizers>
+            </Label>
+
+            <CollectionView ItemsSource="{Binding UpcomingMovies}"
+                            ItemsLayout="HorizontalList"
+                            HeightRequest="230"
+                            >
+                <CollectionView.ItemTemplate>
+                    <DataTemplate 
+                    x:DataType="model:Movie">
+                        <controls:MovieCardView MovieId="{Binding Id}"
+                                                Poster_Path="{Binding Poster_Path}"
+                                                Vote_Average="{Binding Vote_Average}"/>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

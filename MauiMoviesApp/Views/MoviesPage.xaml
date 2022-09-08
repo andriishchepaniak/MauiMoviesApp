@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:MauiMoviesApp.Models"
+             xmlns:viewmodel="clr-namespace:MauiMoviesApp.ViewModels"
+             xmlns:controls="clr-namespace:MauiMoviesApp.Views.Controls"
+             x:DataType="viewmodel:MoviesViewModel"
+             x:Class="MauiMoviesApp.Views.MoviesPage"
+             BackgroundColor="Black"
+             Title="MoviesPage">
+
+    <CollectionView ItemsSource="{Binding Movies}"
+                        HorizontalOptions="StartAndExpand"
+                        Grid.Row="0"
+                        SelectedItem="None"
+                        >
+        <CollectionView.ItemsLayout>
+            <GridItemsLayout Orientation="Vertical"
+                        Span="2" />
+        </CollectionView.ItemsLayout>
+        <CollectionView.ItemTemplate>
+            <DataTemplate 
+                    x:DataType="model:Movie">
+                <Grid Padding="5">
+                    <Frame BorderColor="Black" 
+                        BackgroundColor="Black"
+                        HeightRequest="300"
+                               CornerRadius="10"
+                               WidthRequest="180"
+                               Padding="0">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                    CommandParameter="{Binding Id}"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MoviesViewModel}}, Path=GoToDetailsCommand}"
+                                                      />
+                        </Frame.GestureRecognizers>
+                        <Grid RowDefinitions="180, Auto">
+                            <Image Source="{Binding Poster_Path}"
+                                   Aspect="AspectFill"
+                                   HeightRequest="200"
+                                   WidthRequest="180" />
+
+                            <StackLayout Padding="10"
+                                                     Grid.Row="1"
+                                                     VerticalOptions="Center">
+                                <Label MaxLines="1"  FontSize="Subtitle" TextColor="White" Text="{Binding Title}" />
+                                <Label TextColor="White" Text="{Binding Vote_Average, StringFormat='Rating: {0}'}" />
+                                <Label TextColor="White" Text="{Binding Popularity, StringFormat='Popularity: {0}'}" />
+                            </StackLayout>
+                        </Grid>
+                    </Frame>
+
+
+                </Grid>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
+</ContentPage>

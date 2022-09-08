@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="MauiMoviesApp.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:MauiMoviesApp.Views"
+    BackgroundColor="Black"
+    Shell.FlyoutBehavior="Disabled">
+
+    <Shell.Resources>
+        <ResourceDictionary>
+            <Style TargetType="TabBar">
+                <Setter Property="Shell.TabBarBackgroundColor"
+            Value="Black" />
+                <Setter Property="Shell.TabBarTitleColor"
+            Value="Blue" />
+                <Setter Property="Shell.TabBarUnselectedColor"
+            Value="AntiqueWhite" />
+            </Style>
+        </ResourceDictionary>
+    </Shell.Resources>
+
+    <TabBar>
+        <Tab>
+            <ShellContent Title="Home"
+                          ContentTemplate="{DataTemplate local:HomePage}"
+                          Route="HomePage" /> 
+        </Tab>
+        <Tab>
+            <ShellContent Title="Home"
+                          ContentTemplate="{DataTemplate local:Library}"
+                          Route="HomePage" /> 
+        </Tab>
+    </TabBar>
+
+
+</Shell>

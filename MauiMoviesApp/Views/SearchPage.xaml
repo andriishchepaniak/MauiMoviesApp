@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:MauiMoviesApp.Models"
+             xmlns:viewmodel="clr-namespace:MauiMoviesApp.ViewModels"
+             xmlns:controls="clr-namespace:MauiMoviesApp.Views.Controls"
+             x:DataType="viewmodel:SearchViewModel"
+             x:Class="MauiMoviesApp.Views.SearchPage"
+             BackgroundColor="Black"
+             Title="SearchPage">
+    <ScrollView>
+        <StackLayout Spacing="20"
+                     Padding="20">
+            <Entry Placeholder="Search"
+                   PlaceholderColor="White"
+                   TextColor="White"
+                   Text="{Binding SearchText}"/>
+
+
+            <Button Text="Search" Command="{Binding GetSearchedMoviesCommand}"/>
+
+            <CollectionView ItemsSource="{Binding Movies}"
+                            ItemsLayout="HorizontalList"
+                            HorizontalOptions="StartAndExpand"
+                            SelectedItem="None"
+                            HeightRequest="280"
+                            >
+                <CollectionView.ItemTemplate>
+                    <DataTemplate 
+                        x:DataType="model:Movie">
+                        <controls:MovieCardView MovieId="{Binding Id}"
+                                                Poster_Path="{Binding Poster_Path}"
+                                                Vote_Average="{Binding Vote_Average}"/>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <CollectionView ItemsSource="{Binding Actors}"
+                                ItemsLayout="HorizontalList"
+                                HeightRequest="300"
+                            >
+                <CollectionView.ItemTemplate>
+                    <DataTemplate 
+                        x:DataType="model:Actor">
+                        <!--<Grid Padding="10">
+                            <Frame HeightRequest="300"
+                                       WidthRequest="150"
+                                       Padding="0"
+                                       BackgroundColor="Black"
+                                       BorderColor="Black"
+                                       CornerRadius="10"
+                                   >
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                        CommandParameter="{Binding Id}"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MovieDetailsViewModel}}, Path=GoToActorDetailsCommand}"
+                                                          />
+                                </Frame.GestureRecognizers>
+                                <Grid RowDefinitions="180, *">
+                                    <Image Source="{Binding Profile_Path}"
+                                       Aspect="AspectFill"
+                                       HeightRequest="180"
+                                       WidthRequest="150" />
+
+                                    <StackLayout Padding="5"
+                                                         Grid.Row="1"
+                                                         VerticalOptions="Center">
+                                        <Label  Text="{Binding Name}" TextColor="White"/>
+                                        <Label  Text="{Binding Character}" TextColor="White"/>
+                                    </StackLayout>
+                                </Grid>
+                            </Frame>
+
+
+                        </Grid>-->
+                        <controls:ActorCardView ActorId="{Binding Id}"
+                                                Profile_Path="{Binding Profile_Path}"
+                                                Name="{Binding Name}"
+                                                Character="{Binding Character}"/>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:MauiMoviesApp.Models"
+             xmlns:viewmodel="clr-namespace:MauiMoviesApp.ViewModels"
+             xmlns:controls="clr-namespace:MauiMoviesApp.Views.Controls"
+             x:DataType="viewmodel:ActorViewModel"
+             x:Class="MauiMoviesApp.Views.ActorDetailsPage"
+             BackgroundColor="Black"
+             Title="ActorDetailsPage">
+
+
+    <ScrollView Padding="10">
+        <StackLayout>
+            <ActivityIndicator IsVisible="{Binding IsLoading}"
+                               IsRunning="{Binding IsLoading}"
+                               />
+            <StackLayout IsVisible="{Binding IsNotLoading}" Spacing="20" Padding="5">
+
+                <Image Source="{Binding Actor.Profile_Path}"
+                   Aspect="AspectFit"
+                   HeightRequest="600"
+                   />
+                <Label FontSize="Title" TextColor="White" Text="{Binding Actor.Name, StringFormat='Name: {0}'}" />
+                <Label FontSize="Medium" TextColor="White" Text="{Binding Actor.Birthday, StringFormat='Birthday: {0}'}" />
+                <Label FontSize="Medium" TextColor="White" Text="{Binding Actor.Place_Of_Birth, StringFormat='Place of birth: {0}'}" />
+
+                <CollectionView ItemsSource="{Binding ActorMovies}"
+                            ItemsLayout="HorizontalList"
+                            HeightRequest="230"
+                            >
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate 
+                    x:DataType="model:Movie">
+                            <controls:MovieCardView MovieId="{Binding Id}"
+                                                Poster_Path="{Binding Poster_Path}"
+                                                Vote_Average="{Binding Vote_Average}"/>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <Button Text="{Binding ShowBiographyButtonText}"
+                    Command="{Binding ShowBiographyCommand}"
+                    BackgroundColor="Red"/>
+
+                <Label IsVisible="{Binding IsBiographyShow}" FontSize="Medium" TextColor="White" Text="{Binding Actor.Biography}" />
+
+
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
