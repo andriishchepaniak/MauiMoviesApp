@@ -6,36 +6,27 @@
              xmlns:controls="clr-namespace:MauiMoviesApp.Views.Controls"
              x:DataType="viewmodel:MovieDetailsViewModel"
              x:Class="MauiMoviesApp.Views.MovieDetailsPage"
-             BackgroundColor="Black"
-             Title="MovieDetailsPage">
+             Title="{Binding Movie.Title}">
 
     <ScrollView Padding="10">
         <StackLayout>
-            <ActivityIndicator IsVisible="{Binding IsLoading}"
-                               IsRunning="{Binding IsLoading}"
-                               Color="White"
-                               Margin="20"
-                               VerticalOptions="Center"
-                               HorizontalOptions="Center"/>
             <StackLayout Spacing="20" Padding="5">
 
                 <Image Source="{Binding Movie.Poster_Path}"
                    Aspect="AspectFit"
                    HeightRequest="600"
                    />
-                <Label FontSize="Title" TextColor="White" Text="{Binding Movie.Title, StringFormat='Title: {0}'}" />
-                <Label FontSize="Medium" TextColor="White" Text="{Binding Movie.Vote_Average, StringFormat='Rating: {0}'}" />
-                <Label FontSize="Medium" TextColor="White" Text="{Binding Movie.Popularity, StringFormat='Popularity: {0}'}" />
-                <Label FontSize="Medium" TextColor="White" Text="{Binding Movie.Overview}" />
-
-                <!--<xct:MediaElement Source="{Binding Video.Key}" HeightRequest="300"/>-->
+                <Label FontSize="Title" Text="{Binding Movie.Title, StringFormat='Title: {0}'}" />
+                <Label FontSize="Medium" Text="{Binding Movie.Vote_Average, StringFormat='Rating: {0}'}" />
+                <Label FontSize="Medium" Text="{Binding Movie.Popularity, StringFormat='Popularity: {0}'}" />
+                <Label FontSize="Medium" Text="{Binding Movie.Overview}" />
 
                 <Button BackgroundColor="Red"
                     Text="Watch trailer"
                     Command="{Binding WatchTrailerCommand}"
                     CommandParameter="{Binding Video.Key}"
                     />
-                <Label FontSize="Medium" TextColor="White" Text="Cast" />
+                <Label FontSize="Medium" Text="Cast" />
                 <CollectionView ItemsSource="{Binding Cast}"
                             ItemsLayout="HorizontalList"
                             HeightRequest="300"
@@ -52,7 +43,7 @@
                 </CollectionView>
 
 
-                <Label FontSize="Medium" TextColor="White" Text="Similar movies" />
+                <Label FontSize="Medium" Text="Similar movies" />
 
                 <CollectionView ItemsSource="{Binding SimilarMovies}"
                         ItemsLayout="HorizontalList"
@@ -70,7 +61,7 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
 
-                <Label FontSize="Medium" TextColor="White" Text="Recomendation" />
+                <Label FontSize="Medium" Text="Recomendation" />
 
                 <CollectionView ItemsSource="{Binding RecomendationMovies}"
                         ItemsLayout="HorizontalList"

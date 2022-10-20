@@ -23,6 +23,7 @@ public static class MauiProgram
 		builder.Services.AddScoped<ActorService>();
 
 		builder.Services.AddSingleton<HomeViewModel>();
+		builder.Services.AddSingleton<AppShellViewModel>();
 		builder.Services.AddTransient<MoviesViewModel>();
 		builder.Services.AddTransient<MovieDetailsViewModel>();
 		builder.Services.AddTransient<ActorViewModel>();
@@ -33,8 +34,6 @@ public static class MauiProgram
 		builder.Services.AddTransient<MovieDetailsPage>();
 		builder.Services.AddTransient<ActorDetailsPage>();
 		builder.Services.AddTransient<SearchPage>();
-		//builder.Services.AddTransient<ActorCardView>();
-		//builder.Services.AddTransient<MovieCardView>();
 
 		return builder.Build();
 	}

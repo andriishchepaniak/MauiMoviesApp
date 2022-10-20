@@ -4,29 +4,22 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:MauiMoviesApp.Views"
-    BackgroundColor="Black"
+    xmlns:viewmodel="clr-namespace:MauiMoviesApp.ViewModels"
+    x:DataType="viewmodel:AppShellViewModel"
     Shell.FlyoutBehavior="Disabled">
 
-    <Shell.Resources>
-        <ResourceDictionary>
-            <Style TargetType="TabBar">
-                <Setter Property="Shell.TabBarBackgroundColor"
-            Value="Black" />
-                <Setter Property="Shell.TabBarTitleColor"
-            Value="Blue" />
-                <Setter Property="Shell.TabBarUnselectedColor"
-            Value="AntiqueWhite" />
-            </Style>
-        </ResourceDictionary>
-    </Shell.Resources>
+
+    <Shell.ToolbarItems>
+        <ToolbarItem IconImageSource="magnifying_glass.svg" Text="Search" Command="{Binding GoToSearchPageCommand}"/>
+    </Shell.ToolbarItems>
 
     <TabBar>
-        <Tab>
+        <Tab Title="Home" Icon="film.svg">
             <ShellContent Title="Home"
                           ContentTemplate="{DataTemplate local:HomePage}"
                           Route="HomePage" /> 
         </Tab>
-        <Tab>
+        <Tab Title="Library" Icon="bookmark.svg">
             <ShellContent Title="Home"
                           ContentTemplate="{DataTemplate local:Library}"
                           Route="HomePage" /> 

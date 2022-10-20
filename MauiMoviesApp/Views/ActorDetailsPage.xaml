@@ -6,24 +6,20 @@
              xmlns:controls="clr-namespace:MauiMoviesApp.Views.Controls"
              x:DataType="viewmodel:ActorViewModel"
              x:Class="MauiMoviesApp.Views.ActorDetailsPage"
-             BackgroundColor="Black"
              Title="ActorDetailsPage">
 
 
     <ScrollView Padding="10">
         <StackLayout>
-            <ActivityIndicator IsVisible="{Binding IsLoading}"
-                               IsRunning="{Binding IsLoading}"
-                               />
-            <StackLayout IsVisible="{Binding IsNotLoading}" Spacing="20" Padding="5">
+            <StackLayout Spacing="20" Padding="5">
 
                 <Image Source="{Binding Actor.Profile_Path}"
                    Aspect="AspectFit"
                    HeightRequest="600"
                    />
-                <Label FontSize="Title" TextColor="White" Text="{Binding Actor.Name, StringFormat='Name: {0}'}" />
-                <Label FontSize="Medium" TextColor="White" Text="{Binding Actor.Birthday, StringFormat='Birthday: {0}'}" />
-                <Label FontSize="Medium" TextColor="White" Text="{Binding Actor.Place_Of_Birth, StringFormat='Place of birth: {0}'}" />
+                <Label FontSize="Title" Text="{Binding Actor.Name, StringFormat='Name: {0}'}" />
+                <Label FontSize="Medium" Text="{Binding Actor.Birthday, StringFormat='Birthday: {0}'}" />
+                <Label FontSize="Medium" Text="{Binding Actor.Place_Of_Birth, StringFormat='Place of birth: {0}'}" />
 
                 <CollectionView ItemsSource="{Binding ActorMovies}"
                             ItemsLayout="HorizontalList"
@@ -43,7 +39,7 @@
                     Command="{Binding ShowBiographyCommand}"
                     BackgroundColor="Red"/>
 
-                <Label IsVisible="{Binding IsBiographyShow}" FontSize="Medium" TextColor="White" Text="{Binding Actor.Biography}" />
+                <Label IsVisible="{Binding IsBiographyShow}" FontSize="Medium" Text="{Binding Actor.Biography}" />
 
 
             </StackLayout>

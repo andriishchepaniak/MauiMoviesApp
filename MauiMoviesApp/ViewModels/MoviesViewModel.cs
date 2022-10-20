@@ -9,7 +9,8 @@ namespace MauiMoviesApp.ViewModels
 {
     public class MoviesViewModel : BaseViewModel, IQueryAttributable
     {
-        MovieService _movieService;
+        private readonly MovieService _movieService;
+
         public MoviesViewModel(MovieService movieService)
         {
             _movieService = movieService;
@@ -38,8 +39,9 @@ namespace MauiMoviesApp.ViewModels
         //}
 
 
-        async static Task GoToMovieDetails(int movieId)
+        async Task GoToMovieDetails(int movieId)
         {
+            var movie = await _movieService.GetMovieById(movieId);
             await Shell.Current.GoToAsync($"{nameof(MovieDetailsPage)}?movieId={movieId}", true);
         }
 

@@ -6,22 +6,12 @@
              xmlns:controls="clr-namespace:MauiMoviesApp.Views.Controls"
              x:DataType="viewmodel:HomeViewModel"
              x:Class="MauiMoviesApp.Views.HomePage"
-             BackgroundColor="Black"
              Title="HomePage">
 
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Search" Command="{Binding GoToSearchPageCommand}"/>
-    </ContentPage.ToolbarItems>
-
-    
     <ScrollView Padding="10">
         <StackLayout>
-            <ActivityIndicator IsVisible="{Binding IsLoading}"
-                               IsRunning="{Binding IsLoading}"/>
-
-            <StackLayout Spacing="10"
-                     IsVisible="{Binding IsNotLoading}">
-            <Label Margin="10" TextColor="White" Text="Popular movies >">
+            <StackLayout Spacing="10">
+            <Label Margin="10" Text="Popular movies >">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding GoToMoviesCommand}"
                                           CommandParameter="popular"/>
@@ -37,12 +27,13 @@
                     x:DataType="model:Movie">
                         <controls:MovieCardView MovieId="{Binding Id}"
                                                 Poster_Path="{Binding Poster_Path}"
-                                                Vote_Average="{Binding Vote_Average}"/>
+                                                Vote_Average="{Binding Vote_Average}"
+                                                />
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            <Label Margin="10" TextColor="White" Text="Top rated movies >">
+            <Label Margin="10" Text="Top rated movies >">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding GoToMoviesCommand}"
                                           CommandParameter="top_rated"/>
@@ -58,12 +49,13 @@
                     x:DataType="model:Movie">
                         <controls:MovieCardView MovieId="{Binding Id}"
                                                 Poster_Path="{Binding Poster_Path}"
-                                                Vote_Average="{Binding Vote_Average}"/>
+                                                Vote_Average="{Binding Vote_Average}"
+                            />
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            <Label Margin="10" TextColor="White" Text="Upcoming movies >">
+            <Label Margin="10" Text="Upcoming movies >">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding GoToMoviesCommand}"
                                           CommandParameter="upcoming"/>

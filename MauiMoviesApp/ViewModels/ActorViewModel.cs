@@ -11,7 +11,6 @@ namespace MauiMoviesApp.ViewModels
     public class ActorViewModel : BaseViewModel, IQueryAttributable
     {
         private ActorService _actorService;
-        private MovieService _movieService;
 
         private int id;
 
@@ -66,12 +65,12 @@ namespace MauiMoviesApp.ViewModels
         public ObservableCollection<Movie> ActorMovies { get; set; } = new();
 
         public ICommand ShowBiographyCommand { get; set; }
-        public ActorViewModel(MovieService movieService, ActorService actorService)
+        public ICommand OnAppearingCommand { get; set; }
+        public ActorViewModel(ActorService actorService)
         {
             _actorService = actorService;
-            _movieService = movieService;
             ShowBiographyCommand = new Command(() => ShowBiography());
-            //Movies = new ObservableCollection<Movie>();
+            OnAppearingCommand = new Command(async () => await OnAppearing());
         }
         public void ShowBiography()
         {
@@ -84,12 +83,12 @@ namespace MauiMoviesApp.ViewModels
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             Id = Convert.ToInt32(HttpUtility.UrlDecode(query["actorId"].ToString()));
+        }
 
-            //Actor = await _actorService.GetActorDetails(Id);
-
-            //var actorMovies = await _actorService.GetActorMovies(Id);
-            Actor = query["actor"] as Actor;
-            var actorMovies = query["actorMovies"] as List<Movie>;
+        public async Task OnAppearing()
+        {
+            Actor = await _actorService.GetActorDetails(Id);
+            var actorMovies = await _actorService.GetActorMovies(Id);
 
             if (ActorMovies.Count != 0)
                 ActorMovies.Clear();

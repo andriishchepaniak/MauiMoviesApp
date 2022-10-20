@@ -9,23 +9,26 @@ namespace MauiMoviesApp.ViewModels
     public class HomeViewModel : BaseViewModel
     {
         MovieService movieService;
+        ActorService actorService;
         public ICommand GetPopularMoviesCommand { get; set; }
         public ICommand GetTopRatedMoviesCommand { get; set; }
         public ICommand GetUpcomingMoviesCommand { get; set; }
 
         public ICommand GoToPopularMoviesCommand { get; set; }
-        public ICommand GoToSearchPageCommand { get; set; }
         public ICommand GoToMoviesCommand { get; set; }
+        public ICommand GoToDetailsCommand { get; set; }
+        public ICommand OnAppearingCommand { get; set; }
 
         public ObservableCollection<Movie> PopularMovies { get; set; }
         public ObservableCollection<Movie> TopRatedMovies { get; set; }
         public ObservableCollection<Movie> UpcomingMovies { get; set; }
 
-        public HomeViewModel(MovieService movieService)
+        public HomeViewModel(MovieService movieService, ActorService actorService)
         {
-            IsLoading = true;
+            IsBusy = true;
 
             this.movieService = movieService;
+            this.actorService = actorService;
 
             PopularMovies = new ObservableCollection<Movie>();
             TopRatedMovies = new ObservableCollection<Movie>();
@@ -34,26 +37,26 @@ namespace MauiMoviesApp.ViewModels
             GetPopularMoviesCommand = new Command(async () => await GetPopularMovies());
             GetTopRatedMoviesCommand = new Command(async () => await GetTopRatedMovies());
             GetUpcomingMoviesCommand = new Command(async () => await GetLatestMovies());
+            GoToDetailsCommand = new Command(async (movieId) => await GoToDetails((int)movieId));
+            OnAppearingCommand = new Command(() => OnAppearing());
+
+            //GetPopularMoviesCommand.Execute(null);
+            //GetTopRatedMoviesCommand.Execute(null);
+            //GetUpcomingMoviesCommand.Execute(null);
 
 
-            GetPopularMoviesCommand.Execute(null);
-            GetTopRatedMoviesCommand.Execute(null);
-            GetUpcomingMoviesCommand.Execute(null);
-
-
-            GoToSearchPageCommand = new Command(async () => await GoToSearchPage());
             GoToMoviesCommand = new Command<string>(async (category) => await GoToMovies(category));
-            IsLoading = false;
+            IsBusy = false;
         }
 
         public void ChangeIsLoading()
         {
-            IsLoading = !IsLoading;
+            IsBusy = !IsBusy;
         }
 
         async Task GetPopularMovies()
         {
-            IsLoading = true;
+            IsBusy = true;
 
             if (PopularMovies.Count != 0)
                 PopularMovies = new ObservableCollection<Movie>();
@@ -66,12 +69,12 @@ namespace MauiMoviesApp.ViewModels
                 PopularMovies.Add(movie);
             }
 
-            IsLoading = false;
+            IsBusy = false;
         }
 
         async Task GetTopRatedMovies()
         {
-            IsLoading = true;
+            IsBusy = true;
 
             if (TopRatedMovies.Count != 0)
                 TopRatedMovies = new ObservableCollection<Movie>();
@@ -84,12 +87,12 @@ namespace MauiMoviesApp.ViewModels
                 TopRatedMovies.Add(movie);
             }
 
-            IsLoading = false;
+            IsBusy = false;
         }
 
         async Task GetLatestMovies()
         {
-            IsLoading = true;
+            IsBusy = true;
 
             if (UpcomingMovies.Count != 0)
                 UpcomingMovies = new ObservableCollection<Movie>();
@@ -102,17 +105,24 @@ namespace MauiMoviesApp.ViewModels
                 UpcomingMovies.Add(movie);
             }
 
-            IsLoading = false;
+            IsBusy = false;
         }
 
-        async static Task GoToMovies(string category)
+        async Task GoToMovies(string category)
         {
             await Shell.Current.GoToAsync($"{nameof(MoviesPage)}?category={category}", true);
         }
 
-        async static Task GoToSearchPage()
+        async Task GoToDetails(int movieId)
+{
+            await Shell.Current.GoToAsync($"{nameof(MovieDetailsPage)}?movieId={movieId}", true);
+        }
+
+        public void OnAppearing()
         {
-            await Shell.Current.GoToAsync($"{nameof(SearchPage)}", true);
+            GetPopularMoviesCommand.Execute(null);
+            GetTopRatedMoviesCommand.Execute(null);
+            GetUpcomingMoviesCommand.Execute(null);
         }
     }
 }

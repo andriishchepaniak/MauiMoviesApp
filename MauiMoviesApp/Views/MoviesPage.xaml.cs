@@ -13,15 +13,4 @@ public partial class MoviesPage : ContentPage
 		_moviesViewModel = moviesViewModel;
 		BindingContext = _moviesViewModel;
 	}
-
-	protected override void OnAppearing()
-	{
-		base.OnAppearing();
-	}
-
-	protected override void OnNavigatedTo(NavigatedToEventArgs args)
-	{
-		base.OnNavigatedTo(args);
-		_moviesViewModel.OnAppearing();
-    }
 }

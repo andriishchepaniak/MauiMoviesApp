@@ -10,8 +10,6 @@
         <Frame HeightRequest="300"
                WidthRequest="150"
                Padding="0"
-               BackgroundColor="Black"
-               BorderColor="Black"
                CornerRadius="10">
             <Frame.GestureRecognizers>
                 <TapGestureRecognizer CommandParameter="{Binding ActorId}"
@@ -26,8 +24,8 @@
                 <StackLayout Padding="5"
                              Grid.Row="1"
                              VerticalOptions="Center">
-                    <Label  Text="{Binding Name}" TextColor="White"/>
-                    <Label  Text="{Binding Character}" TextColor="White"/>
+                    <Label  Text="{Binding Name}"/>
+                    <Label  Text="{Binding Character}"/>
                 </StackLayout>
             </Grid>
         </Frame>

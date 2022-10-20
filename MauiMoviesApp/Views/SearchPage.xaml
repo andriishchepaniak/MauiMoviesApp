@@ -6,14 +6,11 @@
              xmlns:controls="clr-namespace:MauiMoviesApp.Views.Controls"
              x:DataType="viewmodel:SearchViewModel"
              x:Class="MauiMoviesApp.Views.SearchPage"
-             BackgroundColor="Black"
              Title="SearchPage">
     <ScrollView>
         <StackLayout Spacing="20"
                      Padding="20">
             <Entry Placeholder="Search"
-                   PlaceholderColor="White"
-                   TextColor="White"
                    Text="{Binding SearchText}"/>
 
 
@@ -42,37 +39,6 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate 
                         x:DataType="model:Actor">
-                        <!--<Grid Padding="10">
-                            <Frame HeightRequest="300"
-                                       WidthRequest="150"
-                                       Padding="0"
-                                       BackgroundColor="Black"
-                                       BorderColor="Black"
-                                       CornerRadius="10"
-                                   >
-                                <Frame.GestureRecognizers>
-                                    <TapGestureRecognizer 
-                                        CommandParameter="{Binding Id}"
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MovieDetailsViewModel}}, Path=GoToActorDetailsCommand}"
-                                                          />
-                                </Frame.GestureRecognizers>
-                                <Grid RowDefinitions="180, *">
-                                    <Image Source="{Binding Profile_Path}"
-                                       Aspect="AspectFill"
-                                       HeightRequest="180"
-                                       WidthRequest="150" />
-
-                                    <StackLayout Padding="5"
-                                                         Grid.Row="1"
-                                                         VerticalOptions="Center">
-                                        <Label  Text="{Binding Name}" TextColor="White"/>
-                                        <Label  Text="{Binding Character}" TextColor="White"/>
-                                    </StackLayout>
-                                </Grid>
-                            </Frame>
-
-
-                        </Grid>-->
                         <controls:ActorCardView ActorId="{Binding Id}"
                                                 Profile_Path="{Binding Profile_Path}"
                                                 Name="{Binding Name}"

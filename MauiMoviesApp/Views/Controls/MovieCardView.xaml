@@ -6,11 +6,9 @@
 
     <Grid Padding="10"
           BindingContext="{x:Reference this}">
-        <Frame BorderColor="Black"
-               WidthRequest="150"
+        <Frame WidthRequest="150"
                Padding="0"
-               CornerRadius="10"
-               BackgroundColor="Black">
+               CornerRadius="10">
             <Frame.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding GoToDetailsCommand}"/>
             </Frame.GestureRecognizers>
@@ -23,7 +21,6 @@
                        Grid.Row="0"/>
                 <Label Margin="5"
                        FontSize="Default"
-                       TextColor="White"
                        Text="{Binding Vote_Average, StringFormat='Rating: {0}'}" 
                        Grid.Row="1"/>
             </Grid>

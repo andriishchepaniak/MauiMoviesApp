@@ -6,7 +6,6 @@
              xmlns:controls="clr-namespace:MauiMoviesApp.Views.Controls"
              x:DataType="viewmodel:MoviesViewModel"
              x:Class="MauiMoviesApp.Views.MoviesPage"
-             BackgroundColor="Black"
              Title="MoviesPage">
 
     <CollectionView ItemsSource="{Binding Movies}"
@@ -22,9 +21,7 @@
             <DataTemplate 
                     x:DataType="model:Movie">
                 <Grid Padding="5">
-                    <Frame BorderColor="Black" 
-                        BackgroundColor="Black"
-                        HeightRequest="300"
+                    <Frame HeightRequest="300"
                                CornerRadius="10"
                                WidthRequest="180"
                                Padding="0">
@@ -43,9 +40,9 @@
                             <StackLayout Padding="10"
                                                      Grid.Row="1"
                                                      VerticalOptions="Center">
-                                <Label MaxLines="1"  FontSize="Subtitle" TextColor="White" Text="{Binding Title}" />
-                                <Label TextColor="White" Text="{Binding Vote_Average, StringFormat='Rating: {0}'}" />
-                                <Label TextColor="White" Text="{Binding Popularity, StringFormat='Popularity: {0}'}" />
+                                <Label MaxLines="1"  FontSize="Subtitle" Text="{Binding Title}" />
+                                <Label Text="{Binding Vote_Average, StringFormat='Rating: {0}'}" />
+                                <Label Text="{Binding Popularity, StringFormat='Popularity: {0}'}" />
                             </StackLayout>
                         </Grid>
                     </Frame>

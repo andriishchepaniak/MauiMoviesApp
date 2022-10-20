@@ -14,6 +14,17 @@ namespace MauiMoviesApp.ViewModels
         public ObservableCollection<Actor> Cast { get; set; } = new();
         public ObservableCollection<Movie> SimilarMovies { get; set; } = new();
         public ObservableCollection<Movie> RecomendationMovies { get; set; } = new();
+        private int movieId;
+
+        public int MovieId
+        {
+            get => movieId;
+            set
+            {
+                movieId = value;
+                OnPropertyChanged(nameof(MovieId));
+            }
+        }
         public Movie Movie
         {
             get => movie;
@@ -43,6 +54,7 @@ namespace MauiMoviesApp.ViewModels
         }
 
         public ICommand WatchTrailerCommand { get; set; }
+        public ICommand OnAppearingCommand { get; set; }
 
         //public async void ApplyQueryAttributes(IDictionary<string, string> query)
         //{
@@ -80,53 +92,58 @@ namespace MauiMoviesApp.ViewModels
             _actorService = actorService;
 
             WatchTrailerCommand = new Command<string>(async (url) => await Browser.OpenAsync(url));
+            OnAppearingCommand = new Command(async () => await OnAppearing());
         }
 
-        //public void ApplyQueryAttributes(IDictionary<string, object> query)
-        //{
-        //    Movie = query["movie"] as Movie;
-
-        //    Video = query["video"] as Video;
-
-        //    var cast = query["cast"] as List<Actor>;
-
-        //    if (Cast.Count != 0)
-        //        Cast.Clear();
-        //    foreach (var actor in cast)
-        //    {
-        //        Cast.Add(actor);
-        //    }
-
-        //    var similarMovies = query["similarMovies"] as List<Movie>;
-
-        //    if (SimilarMovies.Count != 0)
-        //        SimilarMovies.Clear();
-        //    foreach (var movie in similarMovies)
-        //    {
-        //        SimilarMovies.Add(movie);
-        //    }
-
-        //    var recommendationMovies = query["recommendationMovies"] as List<Movie>;
-
-        //    if (RecomendationMovies.Count != 0)
-        //        RecomendationMovies.Clear();
-        //    foreach (var movie in recommendationMovies)
-        //    {
-        //        RecomendationMovies.Add(movie);
-        //    }
-        //}
-        
-        public async void ApplyQueryAttributes(IDictionary<string, object> query)
+        public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
-            IsLoading = true;
+            IsBusy = true;
             var movieId = Convert.ToInt32(query["movieId"] as string);
+            MovieId = Convert.ToInt32(query["movieId"] as string);
 
-            Movie = await _movieService.GetMovieById(movieId);
+            //Movie = await _movieService.GetMovieById(movieId);
 
-            var videos = await _movieService.GetMovieVideos(movieId);
+            //var videos = await _movieService.GetMovieVideos(movieId);
+            //Video = videos.FirstOrDefault();
+
+            //var cast = await _actorService.GetCast(movieId);
+
+            //if (Cast.Count != 0)
+            //    Cast.Clear();
+            //foreach (var actor in cast)
+            //{
+            //    Cast.Add(actor);
+            //}
+
+            //var similarMovies = await _movieService.GetSimilarMovies(movieId);
+
+            //if (SimilarMovies.Count != 0)
+            //    SimilarMovies.Clear();
+            //foreach (var movie in similarMovies)
+            //{
+            //    SimilarMovies.Add(movie);
+            //}
+
+            //var recommendationMovies = await _movieService.GetRecomendationMovies(movieId);
+
+            //if (RecomendationMovies.Count != 0)
+            //    RecomendationMovies.Clear();
+            //foreach (var movie in recommendationMovies)
+            //{
+            //    RecomendationMovies.Add(movie);
+            //}
+
+        }
+
+        public async Task OnAppearing()
+        {
+            IsBusy = true;
+            Movie = await _movieService.GetMovieById(MovieId);
+
+            var videos = await _movieService.GetMovieVideos(MovieId);
             Video = videos.FirstOrDefault();
 
-            var cast = await _actorService.GetCast(movieId);
+            var cast = await _actorService.GetCast(MovieId);
 
             if (Cast.Count != 0)
                 Cast.Clear();
@@ -135,7 +152,7 @@ namespace MauiMoviesApp.ViewModels
                 Cast.Add(actor);
             }
 
-            var similarMovies = await _movieService.GetSimilarMovies(movieId);
+            var similarMovies = await _movieService.GetSimilarMovies(MovieId);
 
             if (SimilarMovies.Count != 0)
                 SimilarMovies.Clear();
@@ -144,7 +161,7 @@ namespace MauiMoviesApp.ViewModels
                 SimilarMovies.Add(movie);
             }
 
-            var recommendationMovies = await _movieService.GetRecomendationMovies(movieId);
+            var recommendationMovies = await _movieService.GetRecomendationMovies(MovieId);
 
             if (RecomendationMovies.Count != 0)
                 RecomendationMovies.Clear();
@@ -153,7 +170,7 @@ namespace MauiMoviesApp.ViewModels
                 RecomendationMovies.Add(movie);
             }
 
-            IsLoading = false;
+            IsBusy = false;
         }
     }
 }

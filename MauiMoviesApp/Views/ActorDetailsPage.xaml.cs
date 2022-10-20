@@ -4,9 +4,16 @@ namespace MauiMoviesApp.Views;
 
 public partial class ActorDetailsPage : ContentPage
 {
-	public ActorDetailsPage(ActorViewModel actorViewModel)
+	ActorViewModel _actorViewModel;
+
+    public ActorDetailsPage(ActorViewModel actorViewModel)
 	{
 		InitializeComponent();
 		BindingContext = actorViewModel;
+		_actorViewModel = actorViewModel;
 	}
+	protected override void OnAppearing()
+	{
+		_actorViewModel.OnAppearingCommand.Execute(null);
+    }
 }
